@@ -1,5 +1,7 @@
 # Driver Void Tool
 
+Quick and dirty tool to help us out at Ideaworks. Calculating whether an LED driver is going to fit through the cutout of a downlight and into the ceiling void is always a bit of guess work. This tool aims to take most of that guess work away. Enter the key measurements into the tool and it will tell you whether the driver will fit or not, and if not what void depth you need to make that driver/cutout work. 
+
 Full description of the maths this page uses to calculate is coming soon...
 
 ## Documentation
