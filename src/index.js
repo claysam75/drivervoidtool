@@ -72,7 +72,7 @@ function App() {
         );
         setAlert(1);
       } else if (driverAdj >= voidDepth) {
-        const requiredVoid = parseInt(driverAdj, 10) + 5;
+        const requiredVoid = parseInt(driverAdj, 10);
         setAlertType('danger');
         setAlertMsg(
           'Driver will not fit this aperture/void combo. Void depth of at least ' +
@@ -177,6 +177,7 @@ function App() {
                   type="number"
                   onChange={(e) => setDriverLength(e.target.value)}
                   value={driverLength}
+                  min={0}
                   required
                 ></Form.Control>
 
@@ -193,6 +194,7 @@ function App() {
                   type="number"
                   onChange={(e) => setDriverHeight(e.target.value)}
                   value={driverHeight}
+                  min={0}
                   required
                 ></Form.Control>
                 <InputGroup.Append>
@@ -200,7 +202,7 @@ function App() {
                 </InputGroup.Append>
               </InputGroup>
               <Form.Text muted>
-                Whichever is the shortest out of the driver width/depth.
+                Whichever is the shortest out of the driver width/height.
                 Maximises chances of driver fitting.
               </Form.Text>
             </Col>
@@ -211,6 +213,7 @@ function App() {
                   type="number"
                   onChange={(e) => setDriverWidth(e.target.value)}
                   value={driverWidth}
+                  min={0}
                   required
                 ></Form.Control>
                 <InputGroup.Append>
@@ -229,6 +232,7 @@ function App() {
                   type="number"
                   onChange={(e) => setApertureWidth(e.target.value)}
                   value={apertureWidth}
+                  min={0}
                   required
                 ></Form.Control>
                 <InputGroup.Append>
@@ -247,6 +251,7 @@ function App() {
                   type="number"
                   onChange={(e) => setApertureDepth(e.target.value)}
                   value={apertureDepth}
+                  min={0}
                   required
                 ></Form.Control>
                 <InputGroup.Append>
@@ -256,7 +261,8 @@ function App() {
               <Form.Text muted>
                 The vertical depth which the driver must travel through, ie
                 plaster board, plaster in kit. Be careful with plaster in
-                fittings.{' '}
+                fittings. DOUBLE PLASTER BOARD CEILINGS ARE COMMON. SAFE TO
+                ASSUME WORST CASE SCENARIO OF 24MM.{' '}
               </Form.Text>
             </Col>
             <Col>
@@ -266,6 +272,7 @@ function App() {
                   type="number"
                   onChange={(e) => setVoidDepth(e.target.value)}
                   value={voidDepth}
+                  min={0}
                   required
                 ></Form.Control>
                 <InputGroup.Append>
