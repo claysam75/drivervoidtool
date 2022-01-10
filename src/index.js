@@ -261,8 +261,9 @@ function App() {
               <Form.Text muted>
                 The vertical depth which the driver must travel through, ie
                 plaster board, plaster in kit. Be careful with plaster in
-                fittings. DOUBLE PLASTER BOARD CEILINGS ARE COMMON. SAFE TO
-                ASSUME WORST CASE SCENARIO OF 24MM.{' '}
+                fittings. DOUBLE PLASTER BOARD CEILINGS ARE COMMON. NOT UNREASONABLE TO
+                ASSUME WORST CASE SCENARIO OF 24MM DEPTH.{' '}
+
               </Form.Text>
             </Col>
             <Col>
