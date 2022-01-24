@@ -12,6 +12,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
 import plug from '../public/plug.svg';
 import github from '../public/github-original.svg';
+import { nanoid } from 'nanoid';
 
 export default function Home() {
   const [driverLength, setDriverLength] = useState();
@@ -189,13 +190,13 @@ export default function Home() {
             <thead>
               <tr>
                 {tableHeaders.map((header) => (
-                  <th>{header}</th>
+                  <th key={nanoid()}>{header}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {presets.map((preset) => (
-                <tr>
+                <tr key={nanoid()}>
                   <td>{preset.name}</td>
                   <td>{preset.description}</td>
                   <td>{preset.wattage}</td>
