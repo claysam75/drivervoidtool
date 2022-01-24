@@ -10,8 +10,8 @@ import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
+import Accordion from 'react-bootstrap/Accordion';
 import plug from '../public/plug.svg';
-import github from '../public/github-original.svg';
 import { nanoid } from 'nanoid';
 
 export default function Home() {
@@ -185,37 +185,46 @@ export default function Home() {
             This tool is still in BETA. The maths being done under the hood is
             still being tweaked so please do not trust the results 100%.
           </Alert>
-          <h5>Common Driver Presets</h5>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                {tableHeaders.map((header) => (
-                  <th key={nanoid()}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {presets.map((preset) => (
-                <tr key={nanoid()}>
-                  <td>{preset.name}</td>
-                  <td>{preset.description}</td>
-                  <td>{preset.wattage}</td>
-                  <td>{preset.dVersion}</td>
-                  <td>{preset.dType}</td>
-                  <td>{preset.outputs}</td>
-                  <td>
-                    <Button
-                      variant="outline-primary"
-                      id={preset.selectId}
-                      onClick={handlePreset2}
-                    >
-                      Select
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <h5>Common Driver Presets</h5>
+              </Accordion.Header>
+              <Accordion.Body>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      {tableHeaders.map((header) => (
+                        <th key={nanoid()}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {presets.map((preset) => (
+                      <tr key={nanoid()}>
+                        <td>{preset.name}</td>
+                        <td>{preset.description}</td>
+                        <td>{preset.wattage}</td>
+                        <td>{preset.dVersion}</td>
+                        <td>{preset.dType}</td>
+                        <td>{preset.outputs}</td>
+                        <td>
+                          <Button
+                            variant="outline-primary"
+                            id={preset.selectId}
+                            onClick={handlePreset2}
+                          >
+                            Select
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
 
           <hr></hr>
           <Form onSubmit={handleCalculate}>
