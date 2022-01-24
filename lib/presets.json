@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "EldoLED 240A",
+    "Description": "Standard 20W single colour downlight driver.",
+    "Wattage": 20,
+    "DALI Version": "DALI-2",
+    "DALI Type": "DT-6",
+    "Outputs": 1,
+    "ID": "240A"
+  },
+  {
+    "Name": "EldoLED 360A",
+    "Description": "Standard 30W single colour downlight driver.",
+    "Wattage": 30,
+    "DALI Version": "DALI-2",
+    "DALI Type": "DT-8",
+    "Outputs": 1,
+    "ID": "360A"
+  }
+]
