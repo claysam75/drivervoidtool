@@ -4,7 +4,7 @@ const head = (props) => {
     <div>
       <Head>
         <title>{props.title}</title>
-        <html land="en"></html>
+        <html lang="en"></html>
         <meta
           name="viewport"
           content="initial-scale=1.0"
