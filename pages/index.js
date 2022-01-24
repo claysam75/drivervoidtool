@@ -1,4 +1,5 @@
 import Head from '../Components/head';
+import Image from 'next/image';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +10,8 @@ import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
+import plug from '../public/plug.svg';
+import github from '../public/github-original.svg';
 
 export default function Home() {
   const [driverLength, setDriverLength] = useState();
@@ -172,39 +175,14 @@ export default function Home() {
       <>
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#">
-            <img
-              src="plug.svg"
-              width="30"
-              height="30"
-              fill="#ffffff"
-              alt="plug icon"
-            />{' '}
+            <Image src={plug} alt="electrical plug logo" height="30"></Image>{' '}
             Driver Void Tool
           </Navbar.Brand>
-          <a
-            href="https://github.com/claysam75/drivervoidtool"
-            target="_blank"
-            rel="noreferrer"
-            className="ml-auto"
-            style={{ color: 'white' }}
-          >
-            <img
-              src="github-original.svg"
-              width="30"
-              height="30"
-              fill="#ffffff"
-              alt="github icon"
-            />
-          </a>
         </Navbar>
         <Container className="mt-3 mb-4 ml-4">
           <Alert variant="warning">
             This tool is still in BETA. The maths being done under the hood is
-            still being tweaked so please do not trust the results 100%. <br />
-            <br />
-            It also assumes all drivers are perfectly rectangular, which we know
-            isn't true, so there may be some wiggle room if the tool says the
-            driver won't fit.
+            still being tweaked so please do not trust the results 100%.
           </Alert>
           <h5>Common Driver Presets</h5>
           <Table striped bordered hover>
