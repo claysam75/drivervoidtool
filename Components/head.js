@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { nanoid } from 'nanoid';
 const head = (props) => {
   return (
     <div>
@@ -6,11 +7,13 @@ const head = (props) => {
         <title>{props.title}</title>
         <html lang="en"></html>
         <meta
+          key={nanoid()}
           name="viewport"
           content="initial-scale=1.0"
           width="device-width"
         ></meta>
         <meta
+          key={nanoid}
           name="Description"
           content="Tool for calculating if a driver will fit into a given ceiling void/downlight aperture"
         ></meta>
