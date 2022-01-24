@@ -1,23 +1,34 @@
-# Driver Void Tool
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Quick and dirty tool to help us out at Ideaworks. Calculating whether an LED driver is going to fit through the cutout of a downlight and into the ceiling void is always a bit of guess work. This tool aims to take most of that guess work away. Enter the key measurements into the tool and it will tell you whether the driver will fit or not, and if not what void depth you need to make that driver/cutout work. 
+## Getting Started
 
-Full description of the maths this page uses to calculate is coming soon...
+First, run the development server:
 
-## Documentation
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-If you're comfortable reading JavaScript code - you can see the actual code responsible for the calculation in; /src/index.js
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The function you're looking for is called handleCalculate();
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-Basic calculation steps are as follows;
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-- 1 - Calculate the hypotenuse formed by the downlight aperture width and depth.
-- 2 - Calculate the angle the hypotenuse from step 1 forms with the horizontal plane.
-- 3 - Calculate the maximum angle the driver can be placed at within the downlight aperture.
-- 4 - With the bottom right corner of the driver pivoting on the bottom right corner of the downlight aperture, calculate how far the driver protrudes into the ceiling while at the angle calculated in step 3.
-- 5 - Compare the value calculated in step 4 with the given void depth.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## To Do
+## Learn More
 
-- Due to driver's being (usually) rectangular) and downlight apertures being (usually) circular, the driver cannot utilise the full diameter of the aperture. The maths doesn't currently account for this so could potentially produce false positives when the driver fit is borderline.
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
