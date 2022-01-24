@@ -4,10 +4,15 @@ const head = (props) => {
     <div>
       <Head>
         <title>{props.title}</title>
+        <html land="en"></html>
         <meta
           name="viewport"
           content="initial-scale=1.0"
           width="device-width"
+        ></meta>
+        <meta
+          name="Description"
+          content="Tool for calculating if a driver will fit into a given ceiling void/downlight aperture"
         ></meta>
         <link
           rel="stylesheet"
