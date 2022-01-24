@@ -117,45 +117,6 @@ export default function Home() {
     setDriverWidth(keyObject.width);
   };
 
-  const handlePreset = (evt) => {
-    evt.preventDefault();
-    console.log(evt.target.id);
-    switch (evt.target.id) {
-      case '240A':
-        setDriverLength(160);
-        setDriverHeight(31);
-        setDriverWidth(42);
-        break;
-
-      case '360A':
-        setDriverLength(210);
-        setDriverHeight(34);
-        setDriverWidth(40);
-        break;
-
-      case '20MA-E1Z0D':
-        setDriverLength(151);
-        setDriverHeight(28);
-        setDriverWidth(42);
-        break;
-
-      case '20MA-E2Z0C':
-        setDriverLength(184);
-        setDriverHeight(30);
-        setDriverWidth(42);
-        break;
-
-      case 'TP40':
-        setDriverLength(231);
-        setDriverHeight(23);
-        setDriverWidth(34);
-        break;
-
-      default:
-        break;
-    }
-  };
-
   const handleCalculate = (evt) => {
     evt.preventDefault();
     const endHypotenuse = Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
