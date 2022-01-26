@@ -23,6 +23,8 @@ export default function Home() {
   const [apertureDepth, setApertureDepth] = useState();
   const [voidDepth, setVoidDepth] = useState();
 
+  const [useCableRadius, setUseCableRadius] = useState('on');
+
   const [alert, setAlert] = useState('');
   const [alertMsg, setAlertMsg] = useState('');
   const [alertType, setAlertType] = useState('');
@@ -123,6 +125,9 @@ export default function Home() {
 
   const handleCalculate = (evt) => {
     evt.preventDefault();
+    //check if including cable radius
+    if (useCableRadius) {
+    }
     const endHypotenuse = Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
     console.log('End hypotenuse = ' + endHypotenuse + 'mm');
     //check if driver can fit through cutout at all
@@ -146,7 +151,9 @@ export default function Home() {
       // check if driver can make turn
       const maxDriverAngleRads = (maxDriverAngle * Math.PI) / 180;
       console.log('Max driver angle rads =  ' + maxDriverAngleRads);
-      driverAdj = Math.cos(maxDriverAngleRads) * driverLength;
+      driverAdj =
+        Math.cos(maxDriverAngleRads) *
+        (useCableRadius ? parseInt(driverLength) + 40 : driverLength);
       console.log('Driver adjacent = ' + driverAdj);
       if (driverAdj <= voidDepth) {
         setAlertType('success');
@@ -342,6 +349,19 @@ export default function Home() {
                   Void depth you are testing for. From top side of ceiling build
                   up to upper restriction (ie joist, conduit etc).
                 </Form.Text>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label>Include cable bend radius (40mm)</Form.Label>
+                <Form.Group>
+                  <Form.Check
+                    type="switch"
+                    controlId="cableRadiusCheck"
+                    checked={useCableRadius}
+                    onChange={(e) => setUseCableRadius(e.target.checked)}
+                  ></Form.Check>
+                </Form.Group>
               </Col>
             </Row>
             <div className="d-grid gap-2">
