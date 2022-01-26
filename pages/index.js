@@ -11,6 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
+import Badge from 'react-bootstrap/Badge';
 import plug from '../public/plug.svg';
 import { nanoid } from 'nanoid';
 
@@ -215,15 +216,10 @@ export default function Home() {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#">
             <Image src={plug} alt="electrical plug logo" height="30"></Image>{' '}
-            Driver Void Tool
+            Driver Void Tool{'   '} <Badge bg="warning">BETA</Badge>
           </Navbar.Brand>
         </Navbar>
         <Container className="mt-3 mb-4 ml-4">
-          <Alert variant="warning">
-            This tool is still in BETA. The maths being done under the hood is
-            still being tweaked so please do not trust the results 100%.
-          </Alert>
-
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>
@@ -320,7 +316,7 @@ export default function Home() {
               </Col>
             </Row>
 
-            <Row>
+            <Row className="pt-3">
               <Col>
                 <Form.Group>
                   <Form.Label>Aperture Diameter (mm)</Form.Label>
