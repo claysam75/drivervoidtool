@@ -30,6 +30,7 @@ export default function Home() {
   const [alertType, setAlertType] = useState('');
 
   let driverAdj;
+  let trueEndHypotenuse;
 
   const tableHeaders = [
     'Name',
@@ -53,6 +54,8 @@ export default function Home() {
       length: '160',
       width: '42',
       height: '31',
+      dimensionSum: '233',
+      trueHypotenuse: '49',
     },
     {
       name: 'EldoLED 360A',
@@ -65,6 +68,8 @@ export default function Home() {
       length: '210',
       width: '40',
       height: '34',
+      dimensionSum: '284',
+      trueHypotenuse: '52',
     },
     {
       name: 'EldoLED 20MA-E1Z0D',
@@ -77,6 +82,8 @@ export default function Home() {
       length: '151',
       width: '42',
       height: '28',
+      dimensionSum: '221',
+      trueHypotenuse: '45',
     },
     {
       name: 'EldoLED 20MA-E2Z0C',
@@ -89,6 +96,9 @@ export default function Home() {
       length: '184',
       width: '42',
       height: '30',
+      dimensionSum: '256',
+      trueHypotenuse: '47',
+      trueHypotenuse: '1000',
     },
     {
       name: 'Liteplan NLP/1/TP40',
@@ -101,6 +111,8 @@ export default function Home() {
       length: '231',
       width: '34',
       height: '23',
+      dimensionSum: '288',
+      trueHypotenuse: '41',
     },
   ];
 
@@ -125,10 +137,29 @@ export default function Home() {
 
   const handleCalculate = (evt) => {
     evt.preventDefault();
-    //check if including cable radius
-    if (useCableRadius) {
+    //check if values are from a preset
+    let submittedValueSum =
+      parseInt(driverWidth) + parseInt(driverLength) + parseInt(driverHeight);
+    console.log('submitted value sum = ' + submittedValueSum);
+    let presetCheck = presets.some(
+      (preset) => preset.dimensionSum == submittedValueSum
+    );
+    console.log('presetCheck = ' + presetCheck);
+
+    //get trueHypotenuse for selected preset
+    if (presetCheck) {
+      const presetTrueHypotenuse = presets.find(
+        (preset) => preset.dimensionSum == submittedValueSum
+      );
+
+      trueEndHypotenuse = presetTrueHypotenuse.trueHypotenuse;
+
+      console.log('preset true hyp = ' + trueEndHypotenuse);
     }
-    const endHypotenuse = Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
+
+    const endHypotenuse = presetCheck
+      ? trueEndHypotenuse
+      : Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
     console.log('End hypotenuse = ' + endHypotenuse + 'mm');
     //check if driver can fit through cutout at all
     if (endHypotenuse > apertureWidth) {
