@@ -11,6 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Navbar from 'react-bootstrap/Navbar';
 import Table from 'react-bootstrap/Table';
 import Accordion from 'react-bootstrap/Accordion';
+import Badge from 'react-bootstrap/Badge';
 import plug from '../public/plug.svg';
 import { nanoid } from 'nanoid';
 
@@ -23,11 +24,14 @@ export default function Home() {
   const [apertureDepth, setApertureDepth] = useState();
   const [voidDepth, setVoidDepth] = useState();
 
+  const [useCableRadius, setUseCableRadius] = useState('on');
+
   const [alert, setAlert] = useState('');
   const [alertMsg, setAlertMsg] = useState('');
   const [alertType, setAlertType] = useState('');
 
   let driverAdj;
+  let trueEndHypotenuse;
 
   const tableHeaders = [
     'Name',
@@ -51,6 +55,8 @@ export default function Home() {
       length: '160',
       width: '42',
       height: '31',
+      dimensionSum: '233',
+      trueHypotenuse: '49',
     },
     {
       name: 'EldoLED 360A',
@@ -63,6 +69,8 @@ export default function Home() {
       length: '210',
       width: '40',
       height: '34',
+      dimensionSum: '284',
+      trueHypotenuse: '52',
     },
     {
       name: 'EldoLED 20MA-E1Z0D',
@@ -75,6 +83,8 @@ export default function Home() {
       length: '151',
       width: '42',
       height: '28',
+      dimensionSum: '221',
+      trueHypotenuse: '45',
     },
     {
       name: 'EldoLED 20MA-E2Z0C',
@@ -87,6 +97,9 @@ export default function Home() {
       length: '184',
       width: '42',
       height: '30',
+      dimensionSum: '256',
+      trueHypotenuse: '47',
+      trueHypotenuse: '1000',
     },
     {
       name: 'Liteplan NLP/1/TP40',
@@ -99,6 +112,8 @@ export default function Home() {
       length: '231',
       width: '34',
       height: '23',
+      dimensionSum: '288',
+      trueHypotenuse: '41',
     },
   ];
 
@@ -123,7 +138,29 @@ export default function Home() {
 
   const handleCalculate = (evt) => {
     evt.preventDefault();
-    const endHypotenuse = Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
+    //check if values are from a preset
+    let submittedValueSum =
+      parseInt(driverWidth) + parseInt(driverLength) + parseInt(driverHeight);
+    console.log('submitted value sum = ' + submittedValueSum);
+    let presetCheck = presets.some(
+      (preset) => preset.dimensionSum == submittedValueSum
+    );
+    console.log('presetCheck = ' + presetCheck);
+
+    //get trueHypotenuse for selected preset
+    if (presetCheck) {
+      const presetTrueHypotenuse = presets.find(
+        (preset) => preset.dimensionSum == submittedValueSum
+      );
+
+      trueEndHypotenuse = presetTrueHypotenuse.trueHypotenuse;
+
+      console.log('preset true hyp = ' + trueEndHypotenuse);
+    }
+
+    const endHypotenuse = presetCheck
+      ? trueEndHypotenuse
+      : Math.sqrt(driverWidth ** 2 + driverHeight ** 2);
     console.log('End hypotenuse = ' + endHypotenuse + 'mm');
     //check if driver can fit through cutout at all
     if (endHypotenuse > apertureWidth) {
@@ -146,7 +183,9 @@ export default function Home() {
       // check if driver can make turn
       const maxDriverAngleRads = (maxDriverAngle * Math.PI) / 180;
       console.log('Max driver angle rads =  ' + maxDriverAngleRads);
-      driverAdj = Math.cos(maxDriverAngleRads) * driverLength;
+      driverAdj =
+        Math.cos(maxDriverAngleRads) *
+        (useCableRadius ? parseInt(driverLength) + 40 : driverLength);
       console.log('Driver adjacent = ' + driverAdj);
       if (driverAdj <= voidDepth) {
         setAlertType('success');
@@ -177,15 +216,10 @@ export default function Home() {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#">
             <Image src={plug} alt="electrical plug logo" height="30"></Image>{' '}
-            Driver Void Tool
+            Driver Void Tool{'   '} <Badge bg="warning">BETA</Badge>
           </Navbar.Brand>
         </Navbar>
         <Container className="mt-3 mb-4 ml-4">
-          <Alert variant="warning">
-            This tool is still in BETA. The maths being done under the hood is
-            still being tweaked so please do not trust the results 100%.
-          </Alert>
-
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>
@@ -282,7 +316,7 @@ export default function Home() {
               </Col>
             </Row>
 
-            <Row>
+            <Row className="pt-3">
               <Col>
                 <Form.Group>
                   <Form.Label>Aperture Diameter (mm)</Form.Label>
@@ -342,6 +376,19 @@ export default function Home() {
                   Void depth you are testing for. From top side of ceiling build
                   up to upper restriction (ie joist, conduit etc).
                 </Form.Text>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Label>Include cable bend radius (40mm)</Form.Label>
+                <Form.Group>
+                  <Form.Check
+                    type="switch"
+                    controlId="cableRadiusCheck"
+                    checked={useCableRadius}
+                    onChange={(e) => setUseCableRadius(e.target.checked)}
+                  ></Form.Check>
+                </Form.Group>
               </Col>
             </Row>
             <div className="d-grid gap-2">
