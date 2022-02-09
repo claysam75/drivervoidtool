@@ -14,6 +14,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Badge from 'react-bootstrap/Badge';
 import plug from '../public/plug.svg';
 import { nanoid } from 'nanoid';
+import ContactForm from '../Components/ContactForm';
 
 export default function Home() {
   const [driverLength, setDriverLength] = useState();
@@ -218,6 +219,7 @@ export default function Home() {
             <Image src={plug} alt="electrical plug logo" height="30"></Image>{' '}
             Driver Void Tool{'   '} <Badge bg="warning">BETA</Badge>
           </Navbar.Brand>
+          <ContactForm></ContactForm>
         </Navbar>
         <Container className="mt-3 mb-4 ml-4">
           <Accordion>
