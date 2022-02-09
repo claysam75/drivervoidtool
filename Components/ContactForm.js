@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -44,6 +45,18 @@ const ContactForm = () => {
       );
     } else {
       return <></>;
+    }
+  };
+
+  const handleContactSubmitButtonContents = (loading) => {
+    if (loading) {
+      return (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      );
+    } else {
+      return 'Submit';
     }
   };
 
@@ -173,7 +186,7 @@ const ContactForm = () => {
                 </Row>
 
                 <Button type="submit" className="mt-3">
-                  Submit
+                  {handleContactSubmitButtonContents(contactPending)}
                 </Button>
               </Row>
               <Row>{handleContactAlert(contactAlert)}</Row>
