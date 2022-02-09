@@ -3,11 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Container from 'react-bootstrap/Container';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const ContactForm = () => {
   const [show, setShow] = useState(false);
@@ -15,6 +15,10 @@ const ContactForm = () => {
   const [contactEmail, setContactEmail] = useState('');
   const [contactText, setContactText] = useState('');
   const [contactSubject, setContactSubject] = useState('');
+  const [contactPending, setContactPending] = useState(false);
+  const [contactAlert, setContactAlert] = useState(false);
+  const [contactAlertVariant, setContactAlertVariant] = useState('');
+  const [contactAlertMessage, setContactAlertMessage] = useState('');
 
   const handleShow = () => {
     setShow(true);
@@ -22,26 +26,66 @@ const ContactForm = () => {
 
   const handleClose = () => {
     setShow(false);
+    setContactName('');
+    setContactEmail('');
+    setContactSubject('');
+    setContactText('');
+    setContactAlert(false);
+    setContactAlertVariant('');
+    setContactAlertMessage('');
   };
 
-  const testButton = () => {
-    fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify({ key: 'value' }),
-    });
+  const handleContactAlert = (show) => {
+    if (show) {
+      return (
+        <Alert className="mt-3" variant={contactAlertVariant}>
+          {contactAlertMessage}
+        </Alert>
+      );
+    } else {
+      return <></>;
+    }
   };
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(
-      '/api/contact',
-      { contactEmail, contactName, contactSubject, contactText },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    setContactPending(true);
+    await axios
+      .post(
+        '/api/contact',
+        { contactEmail, contactName, contactSubject, contactText },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then(() => {
+        setContactPending(false);
+        setContactAlertVariant('success');
+        setContactAlertMessage('Email sent successfully.');
+        setContactAlert(true);
+      })
+      .catch((error) => {
+        console.log('contact form response = ' + error.response.status);
+        switch (error.response.status) {
+          case 403:
+            setContactPending(false);
+            setContactAlertVariant('danger');
+            setContactAlertMessage('Recaptcha verification required');
+            setContactAlert(true);
+
+            break;
+          case 500:
+            setContactPending(false);
+            setContactAlertVariant('warning');
+            setContactAlertMessage(
+              'Server error - please try again later. If the issue persists please email directly at contact@drivervoidtool.samclay.uk'
+            );
+            setContactAlert(true);
+            break;
+        }
+      });
   };
   return (
     <>
@@ -61,10 +105,10 @@ const ContactForm = () => {
         </Modal.Header>
         <Modal.Body>
           <Container>
-            <Alert variant="warning">
+            {/* <Alert variant="warning">
               If submitting a driver preset request, please attach the driver
               datasheet to the contact form.
-            </Alert>
+            </Alert> */}
             <Form onSubmit={handleContactSubmit}>
               <Row className="mt-3">
                 <Col>
@@ -113,17 +157,26 @@ const ContactForm = () => {
                   ></Form.Control>
                 </Form.Group>
               </Row>
-              <Row className="mt-3">
+              {/* <Row className="mt-3">
                 <Form.Group>
                   <Form.Label>File Upload</Form.Label>
                   <Form.Control type="file"></Form.Control>
                 </Form.Group>
-              </Row>
+              </Row> */}
               <Row className="mt-3">
                 <hr />
+                <Row>
+                  <ReCAPTCHA
+                    size="normal"
+                    sitekey="6LebkmseAAAAAN6Vbr5ea2bDcuNmoIly0Jf3mZjb"
+                  />
+                </Row>
 
-                <Button type="submit">Submit</Button>
+                <Button type="submit" className="mt-3">
+                  Submit
+                </Button>
               </Row>
+              <Row>{handleContactAlert(contactAlert)}</Row>
             </Form>
           </Container>
         </Modal.Body>
