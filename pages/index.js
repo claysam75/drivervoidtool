@@ -14,6 +14,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Badge from 'react-bootstrap/Badge';
 import plug from '../public/plug.svg';
 import { nanoid } from 'nanoid';
+import Script from '/next/script';
 
 export default function Home() {
   const [driverLength, setDriverLength] = useState();
@@ -212,6 +213,8 @@ export default function Home() {
   return (
     <div>
       <Head title="Driver Void Tool"></Head>
+      <Script data-goatcounter="https://drivervoidtool.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></Script>
       <>
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#">
