@@ -268,6 +268,9 @@ export default function Home() {
                             variant="outline-primary"
                             id={preset.selectId}
                             onClick={handlePreset2}
+                            className={
+                              "plausible-event-name=Button-" + preset.name
+                            }
                           >
                             Select
                           </Button>
@@ -414,7 +417,7 @@ export default function Home() {
             <div className="d-grid gap-2">
               <Button
                 variant="primary"
-                className="mt-3 "
+                className="mt-3 plausible-event-name=Button-Calculate"
                 size="lg"
                 type="submit"
               >
