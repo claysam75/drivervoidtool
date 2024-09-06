@@ -269,7 +269,7 @@ export default function Home() {
                             id={preset.selectId}
                             onClick={handlePreset2}
                             className={
-                              "plausible-event-name=Button-" + preset.name
+                              "plausible-event-name=Button-" + preset.selectId
                             }
                           >
                             Select
