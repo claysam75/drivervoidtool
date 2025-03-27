@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Driver Void Tool
 
-## Getting Started
+---
 
-First, run the development server:
+- For the maths, look in /pages/index.js -> function handleCalculate() [line 161]
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Concepts-
+  - 'End Hypotenuse' - The hypotenuse formed by the shortest and second shortest sides of the driver. Basically the limiting factor in whether the driver will fit through the cutout at all.
+  - 'Aperture Hypotenuse" - The Hypotenuse formed by the width of the ceilin cutout and the depth of the ceiling build up. Determines the shallowest angle which the driver will be able to enter the cutout/ceiling.
+- Brief explanation of calcultion steps
+  - Check if a preset driver is in use
+    - If preset used - grab pre-calculated end-hypotenuse.
+    - If preset not used - calculate end hypotenuse from provided values
+  - Check if endHypotenuse > or < apertureWidth.
+    - Throw error if endHypotenuse < apertureWidth
+  - Calculate aperture hypotenuse.
+  - Calculate shallowest angle which driver can enter aperture.
+  - Calculate if the full length of the driver will have cleared the cutout by the time the driver hits the upper bound of the ceiling depth.
