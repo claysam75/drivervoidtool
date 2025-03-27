@@ -23,6 +23,11 @@ const head = (props) => {
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
           crossorigin="anonymous"
         />
+        <script
+          defer
+          data-project="67e5a141b9698244376afc7d"
+          src="https://cdn.jsdelivr.net/gh/litlyx/litlyx-js/browser/litlyx.js"
+        ></script>
       </Head>
     </div>
   );
